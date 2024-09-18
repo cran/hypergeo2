@@ -1,0 +1,6 @@
+#!/bin/sh
+cp src/config.h.win src/config.h
+
+max_series_iter=10000
+sed "s/@MAX_SERIES_ITER@/${max_series_iter}/" 'inst/include/hypergeo2/hypergeo.h.in' \
+  > 'inst/include/hypergeo2/hypergeo.h'
