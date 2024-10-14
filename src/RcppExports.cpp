@@ -14,7 +14,7 @@ Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
 // genhypergeo_vec
-RObject genhypergeo_vec(const List& U, const List& L, const NumericVector& z, const Nullable<List>& prec, const LogicalVector& check_mode, const LogicalVector& log, const String& backend);
+NumericVector genhypergeo_vec(const List& U, const List& L, const NumericVector& z, const Nullable<List>& prec, const LogicalVector& check_mode, const LogicalVector& log, const String& backend);
 static SEXP _hypergeo2_genhypergeo_vec_try(SEXP USEXP, SEXP LSEXP, SEXP zSEXP, SEXP precSEXP, SEXP check_modeSEXP, SEXP logSEXP, SEXP backendSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
@@ -53,12 +53,53 @@ RcppExport SEXP _hypergeo2_genhypergeo_vec(SEXP USEXP, SEXP LSEXP, SEXP zSEXP, S
     UNPROTECT(1);
     return rcpp_result_gen;
 }
+// genhypergeo_cpp
+double genhypergeo_cpp(const NumericVector& U, const NumericVector& L, const double& z, const Nullable<IntegerVector>& prec, const bool& check_mode, const bool& log, const String& backend);
+static SEXP _hypergeo2_genhypergeo_cpp_try(SEXP USEXP, SEXP LSEXP, SEXP zSEXP, SEXP precSEXP, SEXP check_modeSEXP, SEXP logSEXP, SEXP backendSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::traits::input_parameter< const NumericVector& >::type U(USEXP);
+    Rcpp::traits::input_parameter< const NumericVector& >::type L(LSEXP);
+    Rcpp::traits::input_parameter< const double& >::type z(zSEXP);
+    Rcpp::traits::input_parameter< const Nullable<IntegerVector>& >::type prec(precSEXP);
+    Rcpp::traits::input_parameter< const bool& >::type check_mode(check_modeSEXP);
+    Rcpp::traits::input_parameter< const bool& >::type log(logSEXP);
+    Rcpp::traits::input_parameter< const String& >::type backend(backendSEXP);
+    rcpp_result_gen = Rcpp::wrap(genhypergeo_cpp(U, L, z, prec, check_mode, log, backend));
+    return rcpp_result_gen;
+END_RCPP_RETURN_ERROR
+}
+RcppExport SEXP _hypergeo2_genhypergeo_cpp(SEXP USEXP, SEXP LSEXP, SEXP zSEXP, SEXP precSEXP, SEXP check_modeSEXP, SEXP logSEXP, SEXP backendSEXP) {
+    SEXP rcpp_result_gen;
+    {
+        Rcpp::RNGScope rcpp_rngScope_gen;
+        rcpp_result_gen = PROTECT(_hypergeo2_genhypergeo_cpp_try(USEXP, LSEXP, zSEXP, precSEXP, check_modeSEXP, logSEXP, backendSEXP));
+    }
+    Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
+    if (rcpp_isInterrupt_gen) {
+        UNPROTECT(1);
+        Rf_onintr();
+    }
+    bool rcpp_isLongjump_gen = Rcpp::internal::isLongjumpSentinel(rcpp_result_gen);
+    if (rcpp_isLongjump_gen) {
+        Rcpp::internal::resumeJump(rcpp_result_gen);
+    }
+    Rboolean rcpp_isError_gen = Rf_inherits(rcpp_result_gen, "try-error");
+    if (rcpp_isError_gen) {
+        SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
+        UNPROTECT(1);
+        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+    }
+    UNPROTECT(1);
+    return rcpp_result_gen;
+}
 
 // validate (ensure exported C++ functions exist before calling them)
 static int _hypergeo2_RcppExport_validate(const char* sig) { 
     static std::set<std::string> signatures;
     if (signatures.empty()) {
-        signatures.insert("RObject(*genhypergeo_vec)(const List&,const List&,const NumericVector&,const Nullable<List>&,const LogicalVector&,const LogicalVector&,const String&)");
+        signatures.insert("NumericVector(*genhypergeo_vec)(const List&,const List&,const NumericVector&,const Nullable<List>&,const LogicalVector&,const LogicalVector&,const String&)");
+        signatures.insert("double(*genhypergeo_cpp)(const NumericVector&,const NumericVector&,const double&,const Nullable<IntegerVector>&,const bool&,const bool&,const String&)");
     }
     return signatures.find(sig) != signatures.end();
 }
@@ -66,12 +107,14 @@ static int _hypergeo2_RcppExport_validate(const char* sig) {
 // registerCCallable (register entry points for exported C++ functions)
 RcppExport SEXP _hypergeo2_RcppExport_registerCCallable() { 
     R_RegisterCCallable("hypergeo2", "_hypergeo2_genhypergeo_vec", (DL_FUNC)_hypergeo2_genhypergeo_vec_try);
+    R_RegisterCCallable("hypergeo2", "_hypergeo2_genhypergeo_cpp", (DL_FUNC)_hypergeo2_genhypergeo_cpp_try);
     R_RegisterCCallable("hypergeo2", "_hypergeo2_RcppExport_validate", (DL_FUNC)_hypergeo2_RcppExport_validate);
     return R_NilValue;
 }
 
 static const R_CallMethodDef CallEntries[] = {
     {"_hypergeo2_genhypergeo_vec", (DL_FUNC) &_hypergeo2_genhypergeo_vec, 7},
+    {"_hypergeo2_genhypergeo_cpp", (DL_FUNC) &_hypergeo2_genhypergeo_cpp, 7},
     {"_hypergeo2_RcppExport_registerCCallable", (DL_FUNC) &_hypergeo2_RcppExport_registerCCallable, 0},
     {NULL, NULL, 0}
 };

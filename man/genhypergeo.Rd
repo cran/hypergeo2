@@ -41,10 +41,6 @@ Warnings are issued if failing to converge.
 }
 \description{
 \code{genhypergeo} computes generalized hypergeometric function with vectorized input.
-This function is available in \code{\link[Rcpp:Rcpp-package]{Rcpp}}
-as \code{hypergeo2::genhypergeo_vec()}. Its non-vectorized version is available in
-\code{\link[Rcpp:Rcpp-package]{Rcpp}} as \code{hypergeo2::genhypergeo_vec()}.
-To use them, please use \code{[[Rcpp::depends(hypergeo2)]]} and \code{#include "hypergeo2.h"}.
 }
 \details{
 Sometimes, computing generalized hypergeometric function in double precision is not sufficient,
@@ -53,6 +49,19 @@ datatypes are provided: \code{mpfr_float} ('mpfr') and \code{gmp_float} ('gmp').
 the 'mpfr' backend is safer, since it defines \code{Inf} while the 'gmp' backend throws overflow
 exception (see references). But the 'gmp' backend results in more accurate results at the same precision,
 since it usually uses higher precision than set (see reference and validate it on yourself with the examples).
+
+\code{genhypergeo} is available in \code{\link[Rcpp:Rcpp-package]{Rcpp}}
+as \code{hypergeo2::genhypergeo_vec()}; its non-vectorized version is named
+in \code{\link[Rcpp:Rcpp-package]{Rcpp}} as \code{hypergeo2::genhypergeo_cpp()}.
+
+Its non-vectorized version is available in
+\code{\link[Rcpp:Rcpp-package]{Rcpp}} as \code{hypergeo2::genhypergeo_<int SXP, typename T1, typename T2>()},
+where \code{SXP} is the type of \code{Rcpp::Vector}, \code{T1} is the input/output datatype
+and \code{T2} is the datatype used in computation (see references for example datatypes).
+
+To use them, please use \code{[[Rcpp::depends(hypergeo2)]]} and \code{#include <hypergeo2.h>}
+in your C++ source files, and add \code{@importFrom hypergeo2 genhypergeo}
+to \code{R/*-package.R} file, just like \code{\link[Rcpp:Rcpp-package]{Rcpp}}.
 }
 \note{
 Change log:
@@ -94,8 +103,10 @@ genhypergeo(U = U, L = L, z = z, prec = 25L, backend = "gmp")
 \references{
 For the floating-point datatypes of tunable precision:
 \itemize{
-\item Documentation about \href{https://www.boost.org/doc/libs/master/libs/multiprecision/doc/html/boost_multiprecision/tut/floats/mpfr_float.html}{\code{mpfr_float}}
-\item Documentation about \href{https://www.boost.org/doc/libs/master/libs/multiprecision/doc/html/boost_multiprecision/tut/floats/gmp_float.html}{\code{gmp_float}}
+\item Documentation about \href{https://www.boost.org/doc/libs/master/libs/multiprecision/doc/html/boost_multiprecision/tut/floats/mpfr_float.html}{\code{mpfr_float}},
+with datatype \code{boost::multiprecision::number<boost::multiprecision::backends::mpfr_float_backend<0>>}
+\item Documentation about \href{https://www.boost.org/doc/libs/master/libs/multiprecision/doc/html/boost_multiprecision/tut/floats/gmp_float.html}{\code{gmp_float}},
+with datatype \code{boost::multiprecision::number<boost::multiprecision::backends::gmp_float<0>>}
 \item Documentation about \href{https://www.mpfr.org/faq.html#:~:text=What\%20are\%20the\%20differences\%20between\%20MPF\%20from\%20GMP,minimum\%20value\%20\%28MPF\%20generally\%20uses\%20a\%20higher\%20precision\%29}{higher precision of \code{gmp_float} datatype}
 }
 }

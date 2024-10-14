@@ -24,11 +24,11 @@ namespace hypergeo2 {
         }
     }
 
-    inline RObject genhypergeo_vec(const List& U, const List& L, const NumericVector& z, const Nullable<List>& prec = R_NilValue, const LogicalVector& check_mode = true, const LogicalVector& log = false, const String& backend = "mpfr") {
+    inline NumericVector genhypergeo_vec(const List& U, const List& L, const NumericVector& z, const Nullable<List>& prec = R_NilValue, const LogicalVector& check_mode = true, const LogicalVector& log = false, const String& backend = "mpfr") {
         typedef SEXP(*Ptr_genhypergeo_vec)(SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP);
         static Ptr_genhypergeo_vec p_genhypergeo_vec = NULL;
         if (p_genhypergeo_vec == NULL) {
-            validateSignature("RObject(*genhypergeo_vec)(const List&,const List&,const NumericVector&,const Nullable<List>&,const LogicalVector&,const LogicalVector&,const String&)");
+            validateSignature("NumericVector(*genhypergeo_vec)(const List&,const List&,const NumericVector&,const Nullable<List>&,const LogicalVector&,const LogicalVector&,const String&)");
             p_genhypergeo_vec = (Ptr_genhypergeo_vec)R_GetCCallable("hypergeo2", "_hypergeo2_genhypergeo_vec");
         }
         RObject rcpp_result_gen;
@@ -42,7 +42,28 @@ namespace hypergeo2 {
             throw Rcpp::LongjumpException(rcpp_result_gen);
         if (rcpp_result_gen.inherits("try-error"))
             throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
-        return Rcpp::as<RObject >(rcpp_result_gen);
+        return Rcpp::as<NumericVector >(rcpp_result_gen);
+    }
+
+    inline double genhypergeo_cpp(const NumericVector& U, const NumericVector& L, const double& z, const Nullable<IntegerVector>& prec, const bool& check_mode, const bool& log, const String& backend) {
+        typedef SEXP(*Ptr_genhypergeo_cpp)(SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP);
+        static Ptr_genhypergeo_cpp p_genhypergeo_cpp = NULL;
+        if (p_genhypergeo_cpp == NULL) {
+            validateSignature("double(*genhypergeo_cpp)(const NumericVector&,const NumericVector&,const double&,const Nullable<IntegerVector>&,const bool&,const bool&,const String&)");
+            p_genhypergeo_cpp = (Ptr_genhypergeo_cpp)R_GetCCallable("hypergeo2", "_hypergeo2_genhypergeo_cpp");
+        }
+        RObject rcpp_result_gen;
+        {
+            RNGScope RCPP_rngScope_gen;
+            rcpp_result_gen = p_genhypergeo_cpp(Shield<SEXP>(Rcpp::wrap(U)), Shield<SEXP>(Rcpp::wrap(L)), Shield<SEXP>(Rcpp::wrap(z)), Shield<SEXP>(Rcpp::wrap(prec)), Shield<SEXP>(Rcpp::wrap(check_mode)), Shield<SEXP>(Rcpp::wrap(log)), Shield<SEXP>(Rcpp::wrap(backend)));
+        }
+        if (rcpp_result_gen.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
+        if (rcpp_result_gen.inherits("try-error"))
+            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
+        return Rcpp::as<double >(rcpp_result_gen);
     }
 
 }

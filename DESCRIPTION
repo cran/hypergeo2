@@ -1,6 +1,6 @@
 Package: hypergeo2
 Title: Generalized Hypergeometric Function with Tunable High Precision
-Version: 0.1.0
+Version: 0.2.0
 Authors@R: 
     person("Xiurui", "Zhu", , "zxr6@163.com", role = c("aut", "cre"),
            comment = NULL)
@@ -16,8 +16,8 @@ URL: https://github.com/zhuxr11/hypergeo2
 BugReports: https://github.com/zhuxr11/hypergeo2/issues
 SystemRequirements: gmp, mpfr
 NeedsCompilation: yes
-Packaged: 2024-09-17 15:53:44 UTC; Admin
+Packaged: 2024-10-14 15:42:13 UTC; Admin
 Author: Xiurui Zhu [aut, cre]
 Maintainer: Xiurui Zhu <zxr6@163.com>
 Repository: CRAN
-Date/Publication: 2024-09-18 11:50:02 UTC
+Date/Publication: 2024-10-14 16:00:02 UTC
